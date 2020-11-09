@@ -4,14 +4,21 @@ import styled from "styled-components";
 import Header from "./Header";
 import ActionBar from "./ActionBar";
 
-const Tweet = ({
-  displayName,
-  username,
-  avatarSrc,
-  tweetContents,
-  isRetweetedByCurrentUser,
-  isLikedByCurrentUser,
-}) => {
+import {TweetContext} from '../TweetContext'
+
+const Tweet = () => {
+  const {
+    displayName,
+    username,
+    avatarSrc,
+    tweetContents,
+    isRetweetedByCurrentUser,
+    isLikedByCurrentUser,
+    date,
+    numOfLikes,
+    numOfRetweets
+  } = useContext(TweetContext);
+  
   return (
     <Wrapper>
       <Header
@@ -20,6 +27,10 @@ const Tweet = ({
         avatarSrc={avatarSrc}
       />
       <TweetContents>{tweetContents}</TweetContents>
+       <Timestamp>{date}</Timestamp>
+      <Divider />
+      <Divider />
+        <Stats><b>{`${numOfRetweets}`}</b> { ` \u00A0 Retweets \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0`} <b>{`${numOfLikes}`}</b> {`\u00A0 Likes`}</Stats>
       <Divider />
       <ActionBar
         isRetweetedByCurrentUser={isRetweetedByCurrentUser}
@@ -29,6 +40,7 @@ const Tweet = ({
     </Wrapper>
   );
 };
+
 
 const Wrapper = styled.div`
   background: white;
